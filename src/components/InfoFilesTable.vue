@@ -277,8 +277,6 @@ import { mapActions, mapMutations, mapState } from 'vuex'
     mounted() {
       // Set the initial number of items
       this.totalRows = this.items.length
-      console.log(this.filesitems[0].name)
-      console.log(this.filesitems[0].url)
     },
     methods: {
       info(item, index, button) {

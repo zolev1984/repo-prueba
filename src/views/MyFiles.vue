@@ -49,7 +49,11 @@ export default {
 
     methods:{
         ...mapActions(['getFilesInfo'])
-    }     
+    },
+/*
+    created: {
+        getFilesInfo
+    }       */
 
 }
 </script>

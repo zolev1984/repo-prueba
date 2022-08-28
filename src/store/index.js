@@ -26,7 +26,6 @@ export default new Vuex.Store({
     getFilesInfo: async function ({commit}){
       const data = await fetch('https://pokeapi.co/api/v2/pokemon');
       const files = await data.json();
-      console.log(files.results[0]);
       commit('fullFiles', files.results);
     }
 
