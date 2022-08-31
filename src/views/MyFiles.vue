@@ -15,12 +15,8 @@
 
             <b-row>
                 <b-col cols="12" md="12">
-                    <InfoFilesTable :filesitems="filesinfo"></InfoFilesTable>
+                    <InfoFilesTable v-if="theinfo != null" :filesitems="theinfo"></InfoFilesTable>
                 </b-col>
-            </b-row>
-
-            <b-row>
-                <b-button variant="danger" @click="getFilesInfo">Mostrar</b-button>
             </b-row>
         </b-container>
     </div>
@@ -30,7 +26,8 @@
 <script>
 import InfoFilesTable from '@/components/InfoFilesTable.vue'
 import UploadFile from '@/components/UploadFile.vue'
-import { mapActions, mapMutations, mapState } from 'vuex'
+import axios from 'axios'
+import { init } from 'events'
 
 export default {
     name: 'MyFiles',
@@ -38,22 +35,27 @@ export default {
         InfoFilesTable,
         UploadFile
     },
-    data(){
-        return{
 
+    data () {
+        return{
+            theinfo: null
         }
     },
-    computed: {
-      ...mapState(['filesinfo'])
+    
+    mounted () {
+        this.init()
     },
 
-    methods:{
-        ...mapActions(['getFilesInfo'])
-    },
-/*
-    created: {
-        getFilesInfo
-    }       */
+    methods: {
+        init(){
+            axios
+                .get('https://api.dailymotion.com/videos?channel=news&limit=20')
+                .then(response => (this.theinfo = response.data.list))
+                .catch(error => {console.log(error)})
+        }
+    }
+
+
 
 }
 </script>
